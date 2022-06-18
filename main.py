@@ -17,7 +17,7 @@ animate = [False, None]
 isGameOver = False
 bulletColours = ["redbullet", "orangebullet", "yellowbullet", "greenbullet", "bluebullet"]
 
-#Leo
+
 class Tankb(pygame.sprite.Sprite):
     # Init
     def __init__(self):
@@ -48,7 +48,6 @@ class Tankb(pygame.sprite.Sprite):
         self.rotate()
         self.throttle(li)
 
-    # Daniel / Leo
     def throttle(self, li):
         rad = self.angle / 180 * math.pi
         speed = 5
@@ -76,7 +75,7 @@ class Tankb(pygame.sprite.Sprite):
 
     def updateLastShot(self):
         self.last_shot = time
-#leo
+
 class Tankr(pygame.sprite.Sprite):
     # Init
     def __init__(self):
@@ -107,7 +106,7 @@ class Tankr(pygame.sprite.Sprite):
         self.rotate()
         self.throttle(li)
 
-    # Daniel / Leo
+
     def throttle(self, li):
         rad = self.angle / 180 * math.pi
         speed = 5
@@ -135,7 +134,7 @@ class Tankr(pygame.sprite.Sprite):
 
     def updateLastShot(self):
         self.last_shot = time
-#leo
+
 class explode(pygame.sprite.Sprite):
     # Init
     def __init__(self):
@@ -156,7 +155,7 @@ class explode(pygame.sprite.Sprite):
         self.image = self.images[frame]
         self.rect = self.image.get_rect(center=self.pos)
 
-# Samuel
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, r, angle, time, tank):
         super(Bullet, self).__init__()
@@ -178,7 +177,7 @@ class Bullet(pygame.sprite.Sprite):
         self.y -= new_y
         self.rect = self.image.get_rect(center=(self.x,self.y))
         bulletwall = pygame.sprite.spritecollide(self, wallgroup, False)
-        #kevin/leo
+    
         if bulletwall != None:
             for wall in bulletwall:
                 self.bounce = True
@@ -213,7 +212,7 @@ class Bullet(pygame.sprite.Sprite):
             self.colourIndex = 0
         self.image = pygame.transform.smoothscale(pygame.image.load("tankSprite/" + bulletColours[self.colourIndex] + ".png").convert_alpha(), (10, 10))
 
-# Daniel / Leo
+
 class Wall(pygame.sprite.Sprite):
     def __init__(self, pos, width, height):
         super(Wall, self).__init__()
@@ -224,7 +223,7 @@ class Wall(pygame.sprite.Sprite):
         self.pos = pos
         self.rect = self.image.get_rect(center=self.pos)
 
-#Daniel
+
 wallgroup = pygame.sprite.Group()
 def map():
     walls =[[(WIDTH/2,0),WIDTH,3], [(WIDTH/2,HEIGHT),WIDTH,3], [(0,HEIGHT/2),3,HEIGHT], [(WIDTH,HEIGHT/2),3,HEIGHT], [(150,100),100,3], [(200,200),3,200], [(300,250),3,300], [(200,400),200,3], [(100,600),3,200], [(250,700),300,3], [(400,600),400,3], [(400,100),3,200], [(500,150),3,100], [(700,50),3,100], [(600,100),200,3], [(750,200),300,3], [(600,300),400,3], [(400,400),3,200], [(900,150),3,100], [(1100,200),3,200], [(1000,100),200,3], [(1050,400),300,3], [(800,500),200,3], [(700,600),3,200], [(900,600),3,200], [(1100,600),3,200], [(1050,700),100,3], [(550,500),100,3], [(600,450),3,100]]
@@ -232,7 +231,7 @@ def map():
         wall = Wall(item[0], item[1], item[2])
         wallgroup.add(wall)
 
-# Daniel
+
 def game_over():
     global isGameOver, tankb, tankr, bulletgroup, tankgroup
     screen.fill("#2333a8")
@@ -258,7 +257,7 @@ def game_over():
 
 blow = explode()
 
-#Leo
+
 blowgroup = pygame.sprite.Group()
 blowgroup.add(blow)
 bulletgroup = pygame.sprite.Group()
@@ -311,7 +310,7 @@ while running:
         tankb.collide()
 
     screen.fill((255, 255, 255))
-    #Leo
+
     bulletgroup.update(wallgroup, tankb, tankr)
     bulletgroup.draw(screen)
     wallgroup.draw(screen)
